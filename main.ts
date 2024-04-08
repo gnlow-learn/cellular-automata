@@ -15,7 +15,7 @@ while (true) {
     
     i++
 
-    $path.setAttribute("d", "M 100 100 " + plane.toPath(20))
+    $path.setAttribute("d", "M 100 100 " + plane.toPath(5))
 
     
     plane = gol(plane)
