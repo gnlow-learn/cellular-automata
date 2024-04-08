@@ -1,19 +1,33 @@
 import { PixelPlane } from "./src/Plane.ts"
 
 const raf = () => new Promise(requestAnimationFrame)
+const wait = (t: number) => new Promise(o => setTimeout(o, t))
 
 const $path = document.querySelector("path")!
 
-const plane = new PixelPlane(10, 10)
-plane.forEach(({ x, y, set }) => {
-    set(!!((x+y) % 2))
-})
+let plane = new PixelPlane(100, 100)
+plane = plane.map(({ x, y }) => !!((x + y) % 2))
 
 let i = 0
 while (true) {
-    await raf()
+    await wait(100)
     
     i++
 
     $path.setAttribute("d", "M 100 100 " + plane.toPath(20))
+
+    
+    plane = plane.map(({ value, neighbors }) => {
+        const neighborCnt = neighbors.filter(x => x).length
+
+        if (value) {
+            if (neighborCnt <= 1) return false
+            else if (neighborCnt <= 3) return true
+            else return false
+        } else {
+            if (neighborCnt <= 2) return false
+            else if (neighborCnt <= 3) return true
+            else return false
+        }
+    })
 }

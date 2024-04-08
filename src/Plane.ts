@@ -15,7 +15,7 @@ const getNeighbors =
 <T>
 (x: number, y: number) =>
 (data: T[][]) =>
-    range(9).flatMap(i => {
+    range(9).flatMap((_, i) => {
         if (i == 4) return []
         const cell = data[x + i % 3]?.[y + Math.floor(i / 3)]
         return cell ? [cell] : []
@@ -34,14 +34,14 @@ export class Plane<T> {
                 .map(() => range(width))
     }
 
-    static fromData<T>(data: T[][]) {
-        const plane = new Plane<T>(data[0].length, data.length)
+    fromData<O>(data: O[][]): typeof this {
+        const plane = new (this.constructor as any)(data[0].length, data.length)
         plane.data = data
-        return plane
+        return plane as this
     }
     
     map<O>(f: (o: Cell<T>) => O) {
-        return Plane.fromData(this.data.map((row, y) =>
+        return this.fromData(this.data.map((row, y) =>
             row.map((value, x) =>
                 f({
                     value,
