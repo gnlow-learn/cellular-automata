@@ -7,7 +7,7 @@ const wait = (t: number) => new Promise(o => setTimeout(o, t))
 const $path = document.querySelector("path")!
 
 let plane = new PixelPlane(100, 100)
-    .map(({ x, y }) => !!((x + y) % 2))
+    .map(({ x, y }) => Math.floor(((x-50)**2 + (y-50)**2) / 99) % 2)
 
 let i = 0
 while (true) {
