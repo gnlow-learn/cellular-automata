@@ -27,14 +27,13 @@ export class PixelPlane extends Plane<boolean> {
     toPath(size: number) {
         let result = ""
         this.data.forEach((row, i) => {
-            result += `M 0 ${i*size}`
             row.forEach(cell => {
                 result += ""
                     + (cell ? "l" : "m")
                     + size
                     + " 0"
             })
-            result += `m 0 ${size}`
+            result += `m ${-size*this.width} ${size}`
         })
         return result
     }
