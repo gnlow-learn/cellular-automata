@@ -5,8 +5,8 @@ const raf = () => new Promise(requestAnimationFrame)
 const $path = document.querySelector("path")!
 
 const plane = new PixelPlane(10, 10)
-plane.forEach((_, x, y) => {
-    plane.data[y][x] = !!((x+y) % 2)
+plane.forEach(({ x, y, set }) => {
+    set(!!((x+y) % 2))
 })
 
 let i = 0
