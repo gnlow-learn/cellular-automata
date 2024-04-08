@@ -17,7 +17,7 @@ const getNeighbors =
 (data: T[][]) =>
     range(9).flatMap((_, i) => {
         if (i == 4) return []
-        const cell = data[y + Math.floor(i / 3)]?.[x + i % 3]
+        const cell = data[y + Math.floor(i / 3) - 1]?.[x + i % 3 - 1]
         return cell ? [cell] : []
     })
 
