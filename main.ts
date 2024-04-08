@@ -6,7 +6,7 @@ const wait = (t: number) => new Promise(o => setTimeout(o, t))
 const $path = document.querySelector("path")!
 
 let plane = new PixelPlane(100, 100)
-plane = plane.map(({ x, y }) => !!((x + y) % 2))
+plane = plane.map(({ x, y }) => Math.random() < 0.5)
 
 let i = 0
 while (true) {
